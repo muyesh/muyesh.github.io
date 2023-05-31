@@ -1,1 +1,36 @@
-Hello World
+<!DOCTYPE html>
+<html>
+<head>
+    <title>音声入力サンプル</title>
+</head>
+<body>
+    <button id="start">音声入力開始</button>
+    <button id="stop">音声入力停止</button>
+    <div id="result"></div>
+
+    <script>
+        // SpeechRecognition オブジェクトの生成
+        var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+        var recognition = new SpeechRecognition();
+
+        // 言語を日本語に設定
+        recognition.lang = 'ja-JP';
+
+        // 音声入力が終了したときのイベント
+        recognition.onresult = function(event) {
+            var text = event.results[0][0].transcript;
+            document.getElementById('result').innerText = text;
+        };
+
+        // 音声入力開始ボタン
+        document.getElementById('start').onclick = function() {
+            recognition.start();
+        };
+
+        // 音声入力停止ボタン
+        document.getElementById('stop').onclick = function() {
+            recognition.stop();
+        };
+    </script>
+</body>
+</html>
